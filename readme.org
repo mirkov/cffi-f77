@@ -1,0 +1,77 @@
+#+title: Examples of linking common lisp to FORTRAN 77
+
+This package provides a set of examples of passing variables between
+common lisp and FORTRAN 77 (f77) programs using the CFFI package.
+
+The examples are all low-level.  Since argument passing to f77
+subroutines is by reference, the examples demonstrate the use of
+pointers to pass variables by reference to f77 subroutines.  The
+examples do not cover calls to f77 functions.  That work remains to be
+done. 
+
+The package does not provide any higher level utilities or macros to
+facilitate the definitions of interfaces to arbitrary f77 subroutines.
+The intent is purely educational.
+
+Other packages, such as =CL-BLAPACK= and =LLA= also provide links to
+f77 code.  However the interface to f77 is embedded in these
+packages.  It would be nice if the interface could be abstracted out,
+so that it could be used by other authors.
+
+* Development and execution environment
+
+  The package was developed on Cygwin, using =clisp= and =gfortran=.
+  A port to Linux and =sbcl= is planned.  It is possible that the code
+  might not work with other compilers (such as =ifort=).  That remains
+  to be tested.
+
+  The package should be launched in a lisp session started from the
+  package's home directory.
+
+* About the f77 code in this package
+
+  The two f77 files are
+  - simple_example.f is an annotated introduction to linking f77 to cl
+  - subroutines.f contains subroutines that demonstrate passing of
+    logical, integer, long, real, double, complex, and string
+    variables, and also real and complex arrays.
+    
+    
+  The library is built with the =makefile= by doing
+#+begin_src shell
+make library.dll
+#+end_src
+
+** On f77 example code
+
+   The annotated introductory example is in =simple_example.f=.  All
+   the other examples use this example as template.
+
+   The bulk of the example code is in =subroutines.f=.  This file
+   contains subroutines that specialized on a variable type, or on
+   arrays.
+   
+   Most examples perform a simple copy of the input into the output
+   variable.  Many of them also echo the input and output variables
+   into a file `xyz.echo' where `xyz' is one of logical, integer, ...
+   If the lisp code is not behaving as expected, these files might
+   provide clues as to why.
+
+   Some of the examples do not copy, but perform a simple modification
+   (such as negating a logical, or returning a complex conjugate).
+
+
+* About lisp code in this package
+
+  The package structure is describe in the =asd= file.
+
+  Loading and unloading of the library is done by functions in
+  =library-ops.lisp=.  However, whenever I modified the library, I had
+  to restart the lisp session.  Unloading the library and loading it
+  again, did not import library changes.  I am not sure of the reason
+  why.
+
+  The examples correctness can be verified by running unit tests:
+#+begin_src lisp
+(run-tests)
+#+end_src
