@@ -1,17 +1,16 @@
 #+title: Examples of linking common lisp to FORTRAN 77
 
 This package provides a set of examples of passing variables between
-common lisp and FORTRAN 77 (f77) programs using the CFFI package.
+common lisp and FORTRAN 77 (f77) programs using the CFFI package.  The
+package goal at this point is educational.  It gives low level
+examples that should enable users for quick linking of lisp and f77.
+It does not provide a general facility for interfacing lisp to f77
+that might be used for linking large amounts of f77 code to lisp.
 
-The examples are all low-level.  Since argument passing to f77
-subroutines is by reference, the examples demonstrate the use of
-pointers to pass variables by reference to f77 subroutines.  The
-examples do not cover calls to f77 functions.  That work remains to be
-done. 
-
-The package does not provide any higher level utilities or macros to
-facilitate the definitions of interfaces to arbitrary f77 subroutines.
-The intent is purely educational.
+Since argument passing to f77 subroutines is by reference, the
+examples demonstrate the use of pointers to pass variables by
+reference to f77 subroutines.  The examples do not cover calls to f77
+functions.  That work remains to be done.
 
 Other packages, such as =CL-BLAPACK= and =LLA= also provide links to
 f77 code.  However the interface to f77 is embedded in these
@@ -39,8 +38,13 @@ so that it could be used by other authors.
     
   The library is built with the =makefile= by doing
 #+begin_src shell
-make library.dll
+make libf77ex.dll
 #+end_src
+in cygwin or
+#+begin_src shell
+make libf77ex.so
+#+end_src
+in Linux
 
 ** On f77 example code
 
@@ -60,7 +64,6 @@ make library.dll
    Some of the examples do not copy, but perform a simple modification
    (such as negating a logical, or returning a complex conjugate).
 
-
 * About lisp code in this package
 
   The package structure is describe in the =asd= file.
@@ -75,3 +78,9 @@ make library.dll
 #+begin_src lisp
 (run-tests)
 #+end_src
+
+* To do
+
+  - Examples of array pinning on sbcl and Linux
+  - Automate handling of different name mangling conventions on
+    different compilers and platforms
