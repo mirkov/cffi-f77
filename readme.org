@@ -1,8 +1,8 @@
 #+title: Examples of linking common lisp to FORTRAN 77
 
 This package provides a set of examples of passing variables between
-common lisp and FORTRAN 77 (f77) programs using the CFFI package.  The
-package goal at this point is educational.  It gives low level
+common lisp and FORTRAN 77 (f77) subroutines using the CFFI package.
+The package goal at this point is educational.  It gives low level
 examples that should enable users for quick linking of lisp and f77.
 It does not provide a general facility for interfacing lisp to f77
 that might be used for linking large amounts of f77 code to lisp.
@@ -10,19 +10,19 @@ that might be used for linking large amounts of f77 code to lisp.
 Since argument passing to f77 subroutines is by reference, the
 examples demonstrate the use of pointers to pass variables by
 reference to f77 subroutines.  The examples do not cover calls to f77
-functions.  That work remains to be done.
+functions.
 
 Other packages, such as =CL-BLAPACK= and =LLA= also provide links to
-f77 code.  However the interface to f77 is embedded in these
-packages.  It would be nice if the interface could be abstracted out,
-so that it could be used by other authors.
+large f77 libraries.  However the interface to f77 is embedded in
+these packages.  It would be nice if the interface could be abstracted
+out, so that it could be used by other authors.
 
 * Development and execution environment
 
-  The package was developed on Cygwin, using =clisp= and =gfortran=.
-  A port to Linux and =sbcl= is planned.  It is possible that the code
-  might not work with other compilers (such as =ifort=).  That remains
-  to be tested.
+  The package was developed on Cygwin, using =clisp= and =g77= and
+  =gfortran=.  It has been tested on 64-bit Linux and =sbcl= and
+  LispWorks.  It is possible that the code might not work with other
+  compilers (such as =ifort=).   
 
   The package should be launched in a lisp session started from the
   package's home directory.
@@ -40,7 +40,7 @@ so that it could be used by other authors.
 #+begin_src shell
 make libf77ex.dll
 #+end_src
-in cygwin or
+in Cygwin or
 #+begin_src shell
 make libf77ex.so
 #+end_src
@@ -83,5 +83,22 @@ in Linux
 * To do
 
   - Examples of array pinning on sbcl and Linux
+  - Examples for linking to functions
   - Automate handling of different name mangling conventions on
-    different compilers and platforms
+    different compilers (g77 vs gfortran vs ifort and others)
+
+* Mangling of subroutine names
+
+  (This was written by a non-expert, and thus subject to corrections)
+
+  When trying to refer to a f77 subroutine "foo", you will most likely
+  need to refer to either "foo_" or "foo__".  It really depends on the
+  compiler, as discussed in this Wikipedia [[http://en.wikipedia.org/wiki/Name_mangling#Name_mangling_in_Fortran][article]].
+
+  The best way to obtain the mangled name is to use the =nm= command,
+  like so
+#+begin_src shell
+nm libXYZ.so | grep foo
+#+end_src
+  The =nm= command is available on Linux and Cygwin, and can be
+  applied to =*.so=, =*.dll=, or =*.o= files.

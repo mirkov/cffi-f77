@@ -1,9 +1,5 @@
 ;; Mirko Vukovic
-<<<<<<< HEAD
-;; Time-stamp: <2012-01-03 20:55:32 library-ops.lisp>
-=======
-;; Time-stamp: <2012-01-03 14:29:33EST library-ops.lisp>
->>>>>>> 79f1accc9bce061df3bf8d0c0ba611d433c410dc
+;; Time-stamp: <2012-01-03 21:01:19 library-ops.lisp>
 ;; 
 ;; Copyright 2011 Mirko Vukovic
 ;; Distributed under the terms of the GNU General Public License

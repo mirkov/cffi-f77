@@ -1,3 +1,7 @@
+2012-01-03  Mirko Vukovic  <mirko.vukovic@us.tel.com>
+
+	* readme.org: Minor corrections, added section on name mangling
+
 2012-01-03  Mirko Vukovic  <Mirko Vukovic <mirko.vukovic@us.tel.com>>
 
 	* simple_example.f (SIMPLE_EXAMPLE): Fixed subroutine name
