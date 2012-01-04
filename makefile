@@ -1,9 +1,9 @@
-fortran = gfortran
+fortran = g77
 
 objs = simple_example.o subroutines.o
 
 %.o : %.f
-	$(fortran) -c $< -o $@
+	$(fortran) -c -fPIC $< -o $@
 
 special : clean
 clean :

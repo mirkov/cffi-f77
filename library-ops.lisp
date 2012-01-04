@@ -1,5 +1,5 @@
 ;; Mirko Vukovic
-;; Time-stamp: <2011-12-28 16:05:29 library-ops.lisp>
+;; Time-stamp: <2012-01-03 20:48:02 library-ops.lisp>
 ;; 
 ;; Copyright 2011 Mirko Vukovic
 ;; Distributed under the terms of the GNU General Public License
@@ -27,7 +27,8 @@
 (defun link-lib ()
   "Link to the foreign library"
   (setf *lib*
-	(load-foreign-library #P"/home/977315/my-software-add-ons/my-lisp/cffi+f77/library.dll")))
+	(load-foreign-library
+	 (asdf:system-relative-pathname "cffi+f77" "library.dll"))))
 
 (defun unlink-lib ()
   "Unlink from the foreign library"

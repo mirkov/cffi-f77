@@ -73,5 +73,6 @@ make library.dll
 
   The examples correctness can be verified by running unit tests:
 #+begin_src lisp
+(in-package #:cffi+f77)
 (run-tests)
 #+end_src
