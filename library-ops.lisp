@@ -1,5 +1,9 @@
 ;; Mirko Vukovic
-;; Time-stamp: <2012-01-03 20:48:02 library-ops.lisp>
+<<<<<<< HEAD
+;; Time-stamp: <2012-01-03 20:55:32 library-ops.lisp>
+=======
+;; Time-stamp: <2012-01-03 14:29:33EST library-ops.lisp>
+>>>>>>> 79f1accc9bce061df3bf8d0c0ba611d433c410dc
 ;; 
 ;; Copyright 2011 Mirko Vukovic
 ;; Distributed under the terms of the GNU General Public License
@@ -28,7 +32,9 @@
   "Link to the foreign library"
   (setf *lib*
 	(load-foreign-library
-	 (asdf:system-relative-pathname "cffi+f77" "library.dll"))))
+	 (asdf:system-relative-pathname "cffi+f77"
+					#+cygwin "libf77ex.dll"
+					#+linux "libf77ex.so"))))
 
 (defun unlink-lib ()
   "Unlink from the foreign library"

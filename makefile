@@ -9,8 +9,11 @@ special : clean
 clean :
 	rm -f $(objs)
 
-library.dll : simple_example.o $(objs)
-	$(fortran) -shared  -o library.dll $(objs)
+libf77ex.dll : $(objs)
+	$(fortran) -shared  -o libf77ex.dll $(objs)
+
+libf77ex.so : $(objs)
+	$(fortran) -shared -o libf77ex.so $(objs)
 
 special : clean_lib
 clean_lib :

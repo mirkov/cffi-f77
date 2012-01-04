@@ -1,0 +1,20 @@
+2012-01-03  Mirko Vukovic  <Mirko Vukovic <mirko.vukovic@us.tel.com>>
+
+	* simple_example.f (SIMPLE_EXAMPLE): Fixed subroutine name
+
+	* subroutine-argument-passing-tests.lisp (run-real-arr-test):
+	Added :inital-element 0.0 for sbcl
+	(run-complex-arr-test): Added :initial-element #C(0.0 0.0) for
+	sbcl
+
+	* simple-example.lisp (run-simple-example): Fixed function name
+
+	* makefile (libf77ex.dll, libf77ex.so): renamed library.dll
+	to conform with library naming convention on cygwin and Linux
+
+2012-01-02  Mirko Vukovic  <Mirko Vukovic <mirko.vukovic@us.tel.com>>
+
+	* makefile (library.dll): Fixed error in file: duplicate file
+	dependency.
+	(%.o): Added -fPIC flag
+

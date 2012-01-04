@@ -1,5 +1,5 @@
 ;; Mirko Vukovic
-;; Time-stamp: <2011-12-29 20:54:16 simple-example.lisp>
+;; Time-stamp: <2012-01-03 14:29:59EST simple-example.lisp>
 ;; 
 ;; Copyright 2011 Mirko Vukovic
 ;; Distributed under the terms of the GNU General Public License
@@ -21,7 +21,7 @@
 
 ;; simple examples
 
-(defcfun ("simple_example_" simple-example) :void
+(defcfun ("simple_example__" simple-example) :void
   "Link to subroutine simple_example in simple_example.f77
 
 simple_example(.f77) places the sum of the first two arguments into
@@ -40,7 +40,7 @@ Other compilers might use different mangling
 ;; values themselves
   (xi :pointer) (yi :pointer) (zo :pointer))
 
-(defun run-simple_example ()
+(defun run-simple-example ()
   "Example of a call to simple_example which calls the f77 subroutine
   simple_example
 

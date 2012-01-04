@@ -1,5 +1,5 @@
 ;; Mirko Vukovic
-;; Time-stamp: <2011-12-29 20:19:20 subroutine-argument-passing-tests.lisp>
+;; Time-stamp: <2012-01-03 14:31:13EST subroutine-argument-passing-tests.lisp>
 ;; 
 ;; Copyright 2011 Mirko Vukovic
 ;; Distributed under the terms of the GNU General Public License
@@ -33,7 +33,7 @@
 ;;; subroutines perform minor operations: return the (not input) or
 ;;; complex conjugate of the input
 
-(defcfun ("logical_test_" logical-test) :void
+(defcfun ("logical_test__" logical-test) :void
   (logical :pointer))
 
 (defun run-logical-test (&optional (value t))
@@ -50,7 +50,7 @@
   (assert-true (not (run-logical-test t))))
 
 
-(defcfun ("integer_test_" integer-test) :void
+(defcfun ("integer_test__" integer-test) :void
   (input :pointer) (output :pointer))
 
 (defun run-integer-test (input)
@@ -68,7 +68,7 @@
   (assert-number-equal 5 (run-integer-test 5))
   (assert-number-equal -10 (run-integer-test -10)))
 
-(defcfun ("real_test_" real-test) :void
+(defcfun ("real_test__" real-test) :void
   (input :pointer) (output :pointer))
 
 (defun run-real-test (input)
@@ -86,7 +86,7 @@
   (assert-number-equal 5.0 (run-real-test 5.0))
   (assert-number-equal -10.0 (run-real-test -10.0)))
 
-(defcfun ("double_test_" double-test) :void
+(defcfun ("double_test__" double-test) :void
   (input :pointer) (output :pointer))
 
 (defun run-double-test (input)
@@ -108,7 +108,7 @@
 ;;; CFFI (and C) does not support the complex type.  Thus we need to
 ;;; perform the variable passinig manually.  CFFI is still not up to
 ;;; the C99 standard which handles complex numbers
-(defcfun ("complex_test_" complex-test) :void
+(defcfun ("complex_test__" complex-test) :void
   (input :pointer) (output :pointer))
 
 (defun run-complex-test (input)
@@ -127,7 +127,7 @@
 (define-test complex
   (assert-number-equal #C(1.0 -2.0) (run-complex-test (complex 1.0 2.0))))
 
-(defcfun ("char_test_" char-test) :void
+(defcfun ("char_test__" char-test) :void
   "char_test is a subroutine of two arguments, the input and output string.
 
 String passing to fortran as discussed at this site
@@ -170,7 +170,7 @@ character type.
 (define-test char
   (assert-equal "foo" (run-char-test "foo")))
 
-(defcfun ("real_arr_test_" real-arr-test) :void
+(defcfun ("real_arr_test__" real-arr-test) :void
   (input :pointer) (output :pointer) (n :pointer))
 
 (defun run-real-arr-test (input)
@@ -182,7 +182,8 @@ character type.
       (setf (mem-aref input* :float i) (elt input i)))
     (setf (mem-ref n* :int) n)
     (real-arr-test input* output* n*)
-    (prog1 (let ((output (make-array n :element-type 'float)))
+    (prog1 (let ((output (make-array n :element-type 'float
+				     :initial-element 0.0)))
 	     (dotimes (i n)
 	       (setf (elt output i) (mem-aref output* :float i)))
 	     output)
@@ -193,7 +194,7 @@ character type.
 (define-test real-arr
   (assert-numerical-equal #(2.0 4.0 6.0) (run-real-arr-test #(1.0 2.0 3.0))))
 
-(defcfun ("complex_arr_test_" complex-arr-test) :void
+(defcfun ("complex_arr_test__" complex-arr-test) :void
   (input :pointer) (output :pointer) (n :pointer))
 
 (defun run-complex-arr-test (input)
@@ -206,7 +207,8 @@ character type.
 	    (mem-aref input* :float (+ 1 (* 2 i))) (imagpart (elt input i))))
     (setf (mem-ref n* :int) n)
     (complex-arr-test input* output* n*)
-    (prog1 (let ((output (make-array n :element-type 'complex)))
+    (prog1 (let ((output (make-array n :element-type 'complex
+				     :initial-element #C(0.0 0.0))))
 	     (dotimes (i n)
 	       (setf (elt output i)
 		     (complex (mem-aref output* :float (* 2 i))

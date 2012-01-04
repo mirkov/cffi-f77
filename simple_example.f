@@ -1,4 +1,4 @@
-      SUBROUTINE EX1 (XI, YI, ZO)
+      SUBROUTINE SIMPLE_EXAMPLE (XI, YI, ZO)
       IMPLICIT DOUBLE PRECISION (A-H, O-Z)
       open (unit=7, file='ex1.echo',status='replace')
       zo = xi+yi
