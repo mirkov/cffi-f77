@@ -101,4 +101,5 @@ in Linux
 nm libXYZ.so | grep foo
 #+end_src
   The =nm= command is available on Linux and Cygwin, and can be
-  applied to =*.so=, =*.dll=, or =*.o= files.
+  applied to =*.so=, =*.dll=, or =*.o= files.  Neglect the leading
+  underscore, if any.
